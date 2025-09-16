@@ -1,12 +1,15 @@
-require('dotenv').config();
-const SibApiV3Sdk = require('sib-api-v3-sdk');
+const { TransactionalEmailsApi, TransactionalEmailsApiApiKeys } = require('@getbrevo/brevo');
 
 if (!process.env.NEXT_PUBLIC_BREVO_API_KEY) {
   throw new Error('La variable de entorno NEXT_PUBLIC_BREVO_API_KEY no está definida');
 }
 
-const defaultClient = SibApiV3Sdk.ApiClient.instance;
-const apiKey = defaultClient.authentications['api-key'];
-apiKey.apiKey = process.env.NEXT_PUBLIC_BREVO_API_KEY;
+// Crear instancia de la API de correos transaccionales
+const transactionalEmailsApi = new TransactionalEmailsApi();
 
-module.exports = SibApiV3Sdk;
+// Configurar la API key usando el método correcto
+transactionalEmailsApi.setApiKey(TransactionalEmailsApiApiKeys.apiKey, process.env.NEXT_PUBLIC_BREVO_API_KEY);
+
+module.exports = {
+  transactionalEmailsApi,
+};

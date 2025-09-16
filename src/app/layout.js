@@ -1,23 +1,14 @@
 import LayoutProvider from '@/layouts/LayoutProvider';
+import { Inter, Raleway } from 'next/font/google';
 
-export const metadata = {
-  metadataBase: 'https://www.envasadosh2o.com',
-  title: 'Envasados H2O',
-
-  description: 'Agua Mineral Canaima, Sin calorias, Libre de sodio, 100% natural.',
-  openGraph: {
-    title: 'Envasados H2O',
-    description: 'Agua Mineral Canaima, Sin calorias, Libre de sodio, 100% natural.',
-    url: 'https://www.envasadosh2o.com',
-    siteName: 'envasadosh2o',
-    locale: 'es_VE',
-    type: 'website',
-  },
-};
+const raleway = Raleway({ subsets: ['latin'] });
 
 export default function RootLayout({ children }) {
   return (
-    <html lang='es'>
+    <html
+      lang='es'
+      className={raleway.className}
+    >
       <body style={{ margin: 0, padding: 0 }}>
         <LayoutProvider>{children}</LayoutProvider>
       </body>

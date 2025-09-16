@@ -146,7 +146,8 @@ const getDesignTokens = (mode) => ({
     },
   },
   typography: {
-    fontFamily: ['"Raleway"', '"Arial"', 'sans-serif'].join(','),
+    fontFamily: 'Raleway',
+    // fontFamily: ['"Raleway"', '"Arial"', 'sans-serif'].join(','),
     h1: {
       fontSize: '5rem',
       fontWeight: 600,

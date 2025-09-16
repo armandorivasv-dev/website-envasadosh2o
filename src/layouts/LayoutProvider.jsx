@@ -10,9 +10,9 @@ const theme = createTheme(getCustomTheme('light'));
 const LayoutProvider = ({ children }) => {
   return (
     <ThemeProvider theme={theme}>
-      {/* <TopNav /> */}
+      <TopNav />
       <main>{children}</main>
-      {/* <Footer /> */}
+      <Footer />
     </ThemeProvider>
   );
 };

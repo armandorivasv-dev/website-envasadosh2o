@@ -19,6 +19,7 @@ import * as Yup from 'yup';
 import CloseIcon from '@mui/icons-material/Close';
 import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
+import brand from '../styles/getCustomTheme';
 const dataValidate = [
   {
     id: 0,
@@ -93,14 +94,14 @@ export const ContactForm = (props) => {
         onClose={handleClose}
         PaperProps={{
           sx: {
-            backgroundColor: 'primary.light',
+            backgroundColor: '#BEDFF6',
             width: '80%',
           },
         }}
       >
         <Typography
           variant='h5'
-          color='white'
+          color='text.primary'
           sx={{ m: 0, p: 2 }}
         >
           Formulario de Contacto
@@ -112,7 +113,7 @@ export const ContactForm = (props) => {
             position: 'absolute',
             right: 8,
             top: 12,
-            color: 'white',
+            color: 'text.primary',
           }}
         >
           <CloseIcon />

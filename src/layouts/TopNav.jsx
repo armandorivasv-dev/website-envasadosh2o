@@ -1,9 +1,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import {
   IconButton,
-  Stack,
   Drawer,
   MenuItem,
   Typography,
@@ -14,33 +12,71 @@ import {
   AppBar,
   Box,
   Menu,
-  useTheme,
   useMediaQuery,
+  Grid,
 } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ContactForm } from '@/components/ContactForm';
 import MenuIcon from '@mui/icons-material/Menu';
+import { brand } from '@/styles/getCustomTheme';
 import { Instagram } from '@mui/icons-material';
-import PhoneIcon from '@mui/icons-material/Phone';
-import EmailIcon from '@mui/icons-material/Email';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
+import { FaTiktok } from 'react-icons/fa';
 
 const MENU_ITEMS = [
   {
     id: 0,
-    title: 'Inicio',
-    value: 'home',
+    title: 'INICIO',
+    value: '/',
   },
   {
     id: 1,
-    title: 'Nosotros',
-    value: 'about-us',
+    title: 'NOSOTROS',
+    value: '/#about-us',
   },
   {
     id: 2,
-    title: 'Servicios',
-    value: 'services',
+    title: 'PRODUCTOS',
+    value: 'products',
+    submenu: [
+      { id: 0, title: 'AGUA MINERAL CANAIMA', value: '/productos/agua-mineral-canaima' },
+      { id: 1, title: 'AGUA SABORIZADA CANAIMA', value: '/productos/agua-saborizada-canaima' },
+      { id: 2, title: 'FRUTEA', value: '/productos/frutea' },
+      { id: 3, title: 'FRESKO', value: '/productos/fresko' },
+    ],
+  },
+];
+
+const RRSS = [
+  {
+    id: 0,
+    profile: '@aguamineralcanaim',
+    url: 'https://www.tiktok.com/@aguamineralcanaim',
+    icon: <FaTiktok />,
+  },
+  {
+    id: 1,
+    profile: '@aguamineralcanaima',
+    url: 'https://www.instagram.com/aguamineralcanaima',
+    icon: <Instagram />,
+  },
+  {
+    id: 3,
+    profile: '@envasadosh2o',
+    url: 'https://www.instagram.com/envasadosh2o',
+    icon: <Instagram />,
+  },
+  {
+    id: 4,
+    profile: '@freskove',
+    url: 'https://www.instagram.com/freskove',
+    icon: <Instagram />,
+  },
+  {
+    id: 5,
+    profile: '@frutea.ve',
+    url: 'https://www.instagram.com/frutea.ve',
+    icon: <Instagram />,
   },
 ];
 
@@ -49,8 +85,7 @@ export const TopNav = () => {
   const [open, setOpen] = useState(false);
   const [openContactForm, setOpenContactForm] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
-  const theme = useTheme();
-  const mdUp = useMediaQuery(theme.breakpoints.up('md'));
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down('md'));
 
   useEffect(() => {
     setIsMounted(true);
@@ -69,6 +104,7 @@ export const TopNav = () => {
 
   const handleMenuClose = () => {
     setAnchorEl(null);
+    if (isMobile) setOpen(false);
   };
 
   const scrollToSection = (sectionId) => {
@@ -91,108 +127,38 @@ export const TopNav = () => {
   return (
     <>
       <AppBar
+        id='home'
         position='fixed'
         sx={{
-          bgcolor: 'background.paper',
+          boxShadow: 0,
+          bgcolor: 'transparent',
           backgroundImage: 'none',
-          width: '100%',
-          borderBottom: '1px solid',
-          borderColor: 'divider',
-          backdropFilter: 'blur(24px)',
-          boxShadow:
-            theme.palette.mode === 'light'
-              ? `0 0 1px rgba(85, 166, 246, 0.1), 1px 1.5px 2px -1px rgba(85, 166, 246, 0.15), 4px 4px 12px -2.5px rgba(85, 166, 246, 0.15)`
-              : '0 0 1px rgba(2, 31, 59, 0.7), 1px 1.5px 2px -1px rgba(2, 31, 59, 0.65), 4px 4px 12px -2.5px rgba(2, 31, 59, 0.65)',
+          mt: 2,
         }}
       >
-        <Box
-          sx={{
-            flexGrow: 1,
-            display: mdUp ? 'flex' : 'none',
-            alignItems: 'center',
-            justifyContent: 'space-around',
-            py: mdUp ? 2 : 1,
-            px: mdUp ? 0 : 2,
-            backgroundColor: 'black',
-            width: '100%',
-          }}
-        >
-          <Stack
-            direction={mdUp ? 'row' : 'column'}
-            spacing={mdUp ? 4 : 0}
-          >
-            <Stack
-              direction={'row'}
-              spacing={1}
-              justifyContent={'center'}
-              alignItems={'center'}
-            >
-              <LocationOnIcon sx={{ color: 'white' }} />
-              <Typography
-                variant='caption'
-                color='white'
-              >
-                Dirección, Ciudad
-              </Typography>
-            </Stack>
-            <Link
-              href='mailto:correo@empresa.com'
-              style={{ textDecoration: 'none' }}
-              aria-label='Enviar correo a correo@empresa.com'
-            >
-              <Stack
-                direction={'row'}
-                spacing={1}
-                justifyContent={'center'}
-                alignItems={'center'}
-              >
-                <EmailIcon sx={{ color: 'white' }} />
-                <Typography
-                  variant='caption'
-                  color='white'
-                >
-                  correo@empresa.com
-                </Typography>
-              </Stack>
-            </Link>
-            <Link
-              target='_blank'
-              href='https://wa.me/56955555555'
-              style={{ textDecoration: 'none' }}
-              aria-label='Contactar por WhatsApp al +55 5 5555 5555'
-            >
-              <Stack
-                direction={'row'}
-                spacing={1}
-                justifyContent={'center'}
-                alignItems={'center'}
-              >
-                <PhoneIcon sx={{ color: 'white' }} />
-                <Typography
-                  variant='caption'
-                  color='white'
-                >
-                  +55 5 5555 5555
-                </Typography>
-              </Stack>
-            </Link>
-          </Stack>
-        </Box>
-        <Container maxWidth='lg'>
+        <Container maxWidth='xl'>
           <Toolbar
             variant='regular'
-            sx={{
+            sx={(theme) => ({
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
               flexShrink: 0,
-              width: '100%',
-              bgcolor: theme.palette.mode === 'light' ? 'rgba(255, 255, 255, 0.4)' : 'rgba(0, 0, 0, 0.4)',
+              borderRadius: '50px',
+              bgcolor: theme.palette.mode === 'light' ? 'rgba(255, 255, 255)' : 'rgba(0, 0, 0, 0.4)',
               backdropFilter: 'blur(24px)',
               maxHeight: 40,
-            }}
+              border: '1px solid',
+              borderColor: 'divider',
+              py: 1,
+              boxShadow:
+                theme.palette.mode === 'light'
+                  ? `0 0 1px rgba(85, 166, 246, 0.1), 1px 1.5px 2px -1px rgba(85, 166, 246, 0.15), 4px 4px 12px -2.5px rgba(85, 166, 246, 0.15)`
+                  : '0 0 1px rgba(2, 31, 59, 0.7), 1px 1.5px 2px -1px rgba(2, 31, 59, 0.65), 4px 4px 12px -2.5px rgba(2, 31, 59, 0.65)',
+            })}
           >
             <Box
+              id='home'
               sx={{
                 flexGrow: 1,
                 display: 'flex',
@@ -201,27 +167,29 @@ export const TopNav = () => {
                 px: 0,
               }}
             >
-              <Image
-                src='/assets/logos/ecomedical-logo.png'
-                width={1000 * 0.2}
-                height={245 * 0.2}
-                alt='ecomedical atención medica a domicilio'
-                priority={true}
-              />
-              <Box sx={{ display: mdUp ? 'flex' : 'none' }}>
-                {MENU_ITEMS.map((item) => (
-                  <React.Fragment key={item.id}>
+              <Link href='/'>
+                <Image
+                  src='/assets/logos/logo-canaima-topnav.png'
+                  width={isMobile ? 299 * 0.4 : 299 * 0.6}
+                  height={isMobile ? 110 * 0.4 : 110 * 0.6}
+                  alt='agua mineral canaima'
+                  priority={true}
+                />
+              </Link>
+
+              <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                {MENU_ITEMS.map((item, index) => (
+                  <div key={index}>
                     {item.submenu ? (
                       <>
                         <MenuItem
                           onClick={handleMenuOpen}
                           sx={{ py: '6px', px: '12px' }}
-                          role='menuitem'
-                          aria-label={'Abrir submenú de ' + item.title}
                         >
                           <Typography
                             variant='subtitle1'
-                            color='text.primary'
+                            color='text.secondary'
+                            fontWeight='bold'
                           >
                             {item.title}
                           </Typography>
@@ -230,17 +198,15 @@ export const TopNav = () => {
                           anchorEl={anchorEl}
                           open={Boolean(anchorEl)}
                           onClose={handleMenuClose}
+                          PaperProps={{ sx: { bgcolor: brand[50] } }}
                         >
                           {item.submenu.map((subItem) => (
                             <MenuItem
                               key={subItem.id}
-                              onClick={() => {
-                                scrollToSection(subItem.value);
-                                handleMenuClose();
-                              }}
+                              component={Link}
+                              href={subItem.value}
+                              onClick={handleMenuClose}
                               sx={{ py: '6px', px: '12px' }}
-                              role='menuitem'
-                              aria-label={`Ir a la sección ${subItem.title}`}
                             >
                               <Typography
                                 variant='subtitle1'
@@ -254,46 +220,46 @@ export const TopNav = () => {
                       </>
                     ) : (
                       <MenuItem
-                        onClick={() => scrollToSection(item.value)}
+                        //onClick={() => scrollToSection(item.value)}
+                        component={Link}
+                        href={item.value}
+                        onClick={() => setOpen(false)}
                         sx={{ py: '6px', px: '12px' }}
-                        role='menuitem'
-                        aria-label={`Ir a la sección ${item.title}`}
                       >
                         <Typography
                           variant='subtitle1'
-                          color='text.primary'
+                          color='text.secondary'
+                          fontWeight='bold'
                         >
                           {item.title}
                         </Typography>
                       </MenuItem>
                     )}
-                  </React.Fragment>
+                  </div>
                 ))}
                 <MenuItem
                   onClick={handleOpenContactForm}
                   sx={{ py: '6px', px: '12px' }}
-                  role='menuitem'
-                  aria-haspopup='true'
-                  aria-label='Formulario de contacto'
                 >
                   <Typography
                     variant='subtitle1'
-                    color='text.primary'
+                    color='text.secondary'
+                    fontWeight='bold'
                   >
-                    Contacto
+                    CONTACTO
                   </Typography>
                 </MenuItem>
               </Box>
             </Box>
-            <Box sx={{ display: mdUp ? 'none' : 'flex' }}>
+            <Box sx={{ display: { xs: '', md: 'none' } }}>
               <Button
                 variant='text'
                 color='primary'
-                aria-label='abrir menú de navegación'
+                aria-label='menu'
                 onClick={toggleDrawer(true)}
                 sx={{ minWidth: '30px', p: '4px' }}
               >
-                <MenuIcon />
+                <MenuIcon fontSize='large' />
               </Button>
               <Drawer
                 anchor='right'
@@ -302,28 +268,26 @@ export const TopNav = () => {
               >
                 <Box
                   sx={{
-                    minWidth: '60vw',
+                    minWidth: '60dvw',
                     p: 2,
                     backgroundColor: 'background.paper',
                     flexGrow: 1,
                   }}
                 >
                   <Image
-                    src='/assets/logos/ecomedical-logo.png'
-                    width={1000 * 0.2}
-                    height={245 * 0.2}
-                    alt='ecomedical atención medica a domicilio'
+                    src='/assets/logos/logo-canaima-topnav.png'
+                    width={299 * 0.4}
+                    height={110 * 0.4}
+                    alt='agua mineral canaima'
                     priority={true}
                   />
-                  {MENU_ITEMS.map((item) => (
-                    <React.Fragment key={item.id}>
+                  {MENU_ITEMS.map((item, index) => (
+                    <div key={index}>
                       {item.submenu ? (
                         <>
                           <MenuItem
                             onClick={handleMenuOpen}
                             sx={{ py: '6px', px: '12px' }}
-                            role='menuitem'
-                            aria-label={'Abrir submenú de ' + item.title}
                           >
                             <Typography
                               variant='subtitle1'
@@ -340,13 +304,12 @@ export const TopNav = () => {
                             {item.submenu.map((subItem) => (
                               <MenuItem
                                 key={subItem.id}
+                                component={Link}
+                                href={subItem.value}
                                 onClick={() => {
-                                  scrollToSection(subItem.value);
-                                  handleMenuClose();
+                                  setOpen(false), setAnchorEl(null);
                                 }}
                                 sx={{ py: '6px', px: '12px' }}
-                                role='menuitem'
-                                aria-label={`Ir a la sección ${subItem.title}`}
                               >
                                 <Typography
                                   variant='subtitle1'
@@ -360,10 +323,10 @@ export const TopNav = () => {
                         </>
                       ) : (
                         <MenuItem
-                          onClick={() => scrollToSection(item.value)}
+                          //onClick={() => scrollToSection(item.value)}
+                          component={Link}
+                          href={item.value}
                           sx={{ py: '6px', px: '12px' }}
-                          role='menuitem'
-                          aria-label={`Ir a la sección ${item.title}`}
                         >
                           <Typography
                             variant='subtitle1'
@@ -373,38 +336,59 @@ export const TopNav = () => {
                           </Typography>
                         </MenuItem>
                       )}
-                    </React.Fragment>
+                    </div>
                   ))}
                   <MenuItem
                     onClick={handleOpenContactForm}
                     sx={{ py: '6px', px: '12px' }}
-                    role='menuitem'
-                    aria-haspopup='true'
-                    aria-label='Abrir formulario de contacto'
                   >
                     <Typography
                       variant='subtitle1'
                       color='text.primary'
                     >
-                      Contacto
+                      CONTACTO
                     </Typography>
                   </MenuItem>
                   <Divider />
-                  <Stack
-                    direction='row'
-                    justifyContent='center'
-                    spacing={1}
-                    sx={{ color: 'text.secondary' }}
+                  <Typography
+                    variant='subtitle1'
+                    fontWeight='bold'
+                    color='text.secondary'
                   >
-                    <IconButton
-                      href='https://www.instagram.com/ecomedical.cl/'
-                      target='_blank'
-                      aria-label='Instagram'
-                      sx={{ alignSelf: 'center', color: 'primary.main' }}
-                    >
-                      <Instagram />
-                    </IconButton>
-                  </Stack>
+                    Redes Sociales
+                  </Typography>
+                  <Grid
+                    container
+                    direction='column'
+                    justifyContent='left'
+                  >
+                    {RRSS.map((item) => (
+                      <Grid
+                        size={{ xs: 12, md: 12 }}
+                        key={item.id}
+                        container
+                        direction='row'
+                        justifyContent='left'
+                        alignItems='center'
+                      >
+                        <IconButton
+                          href={item.url}
+                          target='_blank'
+                          aria-label='rrss'
+                          sx={{ alignSelf: 'center', color: 'primary.main' }}
+                        >
+                          {item.icon}
+                          <Typography
+                            variant='subtitle1'
+                            color='primary.main'
+                            sx={{ ml: 1 }}
+                          >
+                            {item.profile}
+                          </Typography>
+                        </IconButton>
+                      </Grid>
+                    ))}
+                  </Grid>
                 </Box>
               </Drawer>
             </Box>
