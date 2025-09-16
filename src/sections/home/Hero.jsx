@@ -28,7 +28,7 @@ const AnimatedBox = styled(Box, {
 })(({ isActive, animation }) => ({
   opacity: isActive ? 1 : 0,
   transition: 'opacity 0.5s ease-in-out',
-  animation: isActive ? `${animation} 0.8s ease-out forwards` : 'none',
+  animation: isActive ? `${animation} 0.5s ease-out forwards` : 'none',
   position: 'absolute',
   width: '100%',
   height: '100%',
@@ -103,7 +103,7 @@ export const Hero = () => {
         // Pasar al siguiente paso
         setCurrentStep(currentStep + 1);
       }
-    }, 3000); // Duración de cada paso de la animación
+    }, 1500); // Duración de cada paso de la animación
 
     return () => clearTimeout(timer); // Limpiar el temporizador al desmontar o al cambiar de estado
   }, [currentStep, carouselIndex]); // El efecto se reinicia cuando cambia el paso o el slide
