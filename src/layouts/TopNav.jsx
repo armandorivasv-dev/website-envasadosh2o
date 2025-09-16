@@ -375,12 +375,12 @@ export const TopNav = () => {
                           href={item.url}
                           target='_blank'
                           aria-label='rrss'
-                          sx={{ alignSelf: 'center', color: 'primary.main' }}
+                          sx={{ alignSelf: 'center', color: 'text.secondary' }}
                         >
                           {item.icon}
                           <Typography
                             variant='subtitle1'
-                            color='primary.main'
+                            color='text.secondary'
                             sx={{ ml: 1 }}
                           >
                             {item.profile}
