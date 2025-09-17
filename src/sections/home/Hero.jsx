@@ -127,9 +127,10 @@ export const Hero = () => {
         <Image
           src={mdDown ? currentItem.backgroundMobile : currentItem.background}
           alt={currentItem.title}
-          fill
+          sizes='100vw'
+          width='1920'
+          height='1080'
           style={{
-            objectFit: 'cover',
             width: '100%',
             height: '100%',
           }}
