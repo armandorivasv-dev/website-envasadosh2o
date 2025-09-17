@@ -1,5 +1,5 @@
 'use client';
-import { Box, useMediaQuery, useTheme } from '@mui/material';
+import { Box, useMediaQuery } from '@mui/material';
 import Image from 'next/image';
 import { keyframes, styled } from '@mui/system';
 
@@ -31,72 +31,63 @@ const AnimatedBox = styled(Box, {
   height: '100%',
 }));
 
-const CARRUSEL_IMAGES = [
-  {
-    id: 2,
-    background: '/assets/images/home/carrusel/agua-saborizada-fondo.png',
-    backgroundMobile: '/assets/images/home/carrusel/agua-saborizada-fondo-mobile.png',
-    product: '/assets/images/home/carrusel/agua-saborizada-productos.png',
-    productMobile: '/assets/images/home/carrusel/agua-saborizada-productos-mobile.png',
-    title: 'Agua Saborizada Canaima',
-    href: '/agua-saborizada-canaima',
-  },
-];
+const HERO_DATA = {
+  id: 2,
+  background: '/assets/images/home/carrusel/agua-saborizada-fondo.png',
+  backgroundMobile: '/assets/images/home/carrusel/agua-saborizada-fondo-mobile.png',
+  product: '/assets/images/home/carrusel/agua-saborizada-productos.png',
+  productMobile: '/assets/images/home/carrusel/agua-saborizada-productos-mobile.png',
+  title: 'Agua Saborizada Canaima',
+  href: '/agua-saborizada-canaima',
+};
 
 export const Hero = () => {
-  const theme = useTheme();
-
-  const mdDown = useMediaQuery(theme.breakpoints.down('md'));
-
-  const xlDown = useMediaQuery(theme.breakpoints.down('xl'));
+  const mdDown = useMediaQuery((theme) => theme.breakpoints.down('md'));
 
   return (
-    <>
-      {CARRUSEL_IMAGES.map((item) => (
-        <Box
-          key={item.id}
-          sx={{
-            position: 'relative',
+    <Box
+      key={HERO_DATA.id}
+      sx={{
+        position: 'relative',
+        width: '100%',
+        height: '100vh',
+        overflow: 'hidden',
+      }}
+    >
+      {/* Fondo */}
+      <AnimatedBox animation={fadeIn}>
+        <Image
+          src={mdDown ? HERO_DATA.backgroundMobile : HERO_DATA.background}
+          alt={HERO_DATA.title}
+          sizes='100vw'
+          width='1920'
+          height='1080'
+          style={{
             width: '100%',
-            height: '100vh',
-            overflow: 'hidden',
+            height: '100%',
           }}
-        >
-          {/* Fondo */}
-          <AnimatedBox animation={fadeIn}>
-            <Image
-              src={mdDown ? item.backgroundMobile : item.background}
-              alt={item.title}
-              fill
-              style={{
-                objectFit: 'cover',
-                width: '100%',
-                height: '100%',
-              }}
-              priority
-            />
-          </AnimatedBox>
+          priority
+        />
+      </AnimatedBox>
 
-          {/* Producto */}
-          <AnimatedBox
-            animation={scaleIn}
-            sx={{
-              pt: mdDown ? 0 : 15,
-            }}
-          >
-            <Image
-              src={mdDown ? item.productMobile : item.product}
-              alt={item.title}
-              fill
-              style={{
-                objectFit: 'contain',
-                width: '100%',
-                height: '100%',
-              }}
-            />
-          </AnimatedBox>
-        </Box>
-      ))}
-    </>
+      {/* Producto */}
+      <AnimatedBox
+        animation={scaleIn}
+        sx={{
+          pt: mdDown ? 0 : 15,
+        }}
+      >
+        <Image
+          src={mdDown ? HERO_DATA.productMobile : HERO_DATA.product}
+          alt={HERO_DATA.title}
+          fill
+          style={{
+            objectFit: 'contain',
+            width: '100%',
+            height: '100%',
+          }}
+        />
+      </AnimatedBox>
+    </Box>
   );
 };

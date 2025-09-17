@@ -44,49 +44,48 @@ export const Hero = () => {
   const mdDown = useMediaQuery((theme) => theme.breakpoints.down('md'));
 
   return (
-    <>
-      <Box
+    <Box
+      sx={{
+        position: 'relative',
+        width: '100%',
+        height: '100vh',
+        overflow: 'hidden',
+      }}
+    >
+      {/* Fondo */}
+      <AnimatedBox animation={fadeIn}>
+        <Image
+          src={mdDown ? HERO_DATA.backgroundMobile : HERO_DATA.background}
+          alt={HERO_DATA.title}
+          sizes='100vw'
+          width='1920'
+          height='1080'
+          style={{
+            width: '100%',
+            height: '100%',
+          }}
+          priority
+        />
+      </AnimatedBox>
+
+      {/* Producto */}
+      <AnimatedBox
+        animation={scaleIn}
         sx={{
-          position: 'relative',
-          width: '100%',
-          height: '100vh',
-          overflow: 'hidden',
+          pt: mdDown ? 0 : 15,
         }}
       >
-        {/* Fondo */}
-        <AnimatedBox animation={fadeIn}>
-          <Image
-            src={mdDown ? HERO_DATA.backgroundMobile : HERO_DATA.background}
-            alt={HERO_DATA.title}
-            fill
-            style={{
-              objectFit: 'cover',
-              width: '100%',
-              height: '100%',
-            }}
-            priority
-          />
-        </AnimatedBox>
-
-        {/* Producto */}
-        <AnimatedBox
-          animation={scaleIn}
-          sx={{
-            pt: mdDown ? 0 : 15,
+        <Image
+          src={mdDown ? HERO_DATA.productMobile : HERO_DATA.product}
+          alt={HERO_DATA.title}
+          fill
+          style={{
+            objectFit: 'contain',
+            width: '100%',
+            height: '100%',
           }}
-        >
-          <Image
-            src={mdDown ? HERO_DATA.productMobile : HERO_DATA.product}
-            alt={HERO_DATA.title}
-            fill
-            style={{
-              objectFit: 'contain',
-              width: '100%',
-              height: '100%',
-            }}
-          />
-        </AnimatedBox>
-      </Box>
-    </>
+        />
+      </AnimatedBox>
+    </Box>
   );
 };

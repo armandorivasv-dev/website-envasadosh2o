@@ -31,68 +31,63 @@ const AnimatedBox = styled(Box, {
   height: '100%',
 }));
 
-const CARRUSEL_IMAGES = [
-  {
-    id: 3,
-    background: '/assets/images/home/carrusel/frutea-fondo.png',
-    backgroundMobile: '/assets/images/home/carrusel/frutea-fondo-mobile.png',
-    product: '/assets/images/home/carrusel/frutea-productos.png',
-    productMobile: '/assets/images/home/carrusel/frutea-productos-mobile.png',
-    title: 'Frutea',
-    href: '/frutea',
-  },
-];
+const HERO_DATA = {
+  id: 3,
+  background: '/assets/images/home/carrusel/frutea-fondo.png',
+  backgroundMobile: '/assets/images/home/carrusel/frutea-fondo-mobile.png',
+  product: '/assets/images/home/carrusel/frutea-productos.png',
+  productMobile: '/assets/images/home/carrusel/frutea-productos-mobile.png',
+  title: 'Frutea',
+  href: '/frutea',
+};
 
 export const Hero = () => {
   const mdDown = useMediaQuery((theme) => theme.breakpoints.down('md'));
 
   return (
-    <>
-      {CARRUSEL_IMAGES.map((item) => (
-        <Box
-          key={item.id}
-          sx={{
-            position: 'relative',
+    <Box
+      key={HERO_DATA.id}
+      sx={{
+        position: 'relative',
+        width: '100%',
+        height: '100vh',
+        overflow: 'hidden',
+      }}
+    >
+      {/* Fondo */}
+      <AnimatedBox animation={fadeIn}>
+        <Image
+          src={mdDown ? HERO_DATA.backgroundMobile : HERO_DATA.background}
+          alt={HERO_DATA.title}
+          sizes='100vw'
+          width='1920'
+          height='1080'
+          style={{
             width: '100%',
-            height: '100vh',
-            overflow: 'hidden',
+            height: '100%',
           }}
-        >
-          {/* Fondo */}
-          <AnimatedBox animation={fadeIn}>
-            <Image
-              src={mdDown ? item.backgroundMobile : item.background}
-              alt={item.title}
-              fill
-              style={{
-                objectFit: 'cover',
-                width: '100%',
-                height: '100%',
-              }}
-              priority
-            />
-          </AnimatedBox>
+          priority
+        />
+      </AnimatedBox>
 
-          {/* Producto */}
-          <AnimatedBox
-            animation={scaleIn}
-            sx={{
-              pt: mdDown ? 0 : 15,
-            }}
-          >
-            <Image
-              src={mdDown ? item.productMobile : item.product}
-              alt={item.title}
-              fill
-              style={{
-                objectFit: 'contain',
-                width: '100%',
-                height: '100%',
-              }}
-            />
-          </AnimatedBox>
-        </Box>
-      ))}
-    </>
+      {/* Producto */}
+      <AnimatedBox
+        animation={scaleIn}
+        sx={{
+          pt: mdDown ? 0 : 15,
+        }}
+      >
+        <Image
+          src={mdDown ? HERO_DATA.productMobile : HERO_DATA.product}
+          alt={HERO_DATA.title}
+          fill
+          style={{
+            objectFit: 'contain',
+            width: '100%',
+            height: '100%',
+          }}
+        />
+      </AnimatedBox>
+    </Box>
   );
 };
